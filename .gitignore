@@ -1,6 +1,6 @@
 /takeout/settings.py
 
-/takeout/db.sqlite3
+/db.sqlite3
 
 /takeout/accounts/migrations
 
