@@ -1,15 +1,6 @@
 from django import forms
-# from django.contrib.auth.models import User
-from .models import Customer, Restaurant, User
-
-
-class UserForm(forms.ModelForm):
-    email = forms.CharField(max_length=100, required=True)
-    password = forms.CharField(widget=forms.PasswordInput())
-
-    class Meta:
-        model = User
-        fields = ("username", "email", "password", )
+from django.contrib.auth.models import User
+from .models import Customer, Restaurant
 
 
 class CustomerForm(forms.ModelForm):

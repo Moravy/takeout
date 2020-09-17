@@ -2,6 +2,6 @@
 
 /db.sqlite3
 
-/takeout/accounts/migrations
+/accounts/migrations
 
-/trash
+.trash.py
