@@ -4,10 +4,8 @@
 {% block content %}
 <section class="container" id="profile">
     <div class=" mt-5">
-        <div class="text-center">
         <h3> Hello, {{user.username}}</h3>
-        <img class="img-responsive " src="{{user.customer_profile.image.url}}"/>
-        </div>
+
         <div class="card-deck mt-5 mx-auto">
             <div class="card  text-center" >
                 <div class="card-body">
@@ -18,7 +16,7 @@
             </div>
             <div class="card  text-center" >
                 <div class="card-body">
-                <h5 class="card-title">Total Ordered This Week</h5>
+                <h5 class="card-title">Ordered This Week</h5>
                 <p class="card-text">This card has supporting text below as .</p>
                 <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
                 </div>

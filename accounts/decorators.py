@@ -14,9 +14,10 @@ def allow_users_group(allowed_roles=[]):
         def wrapper_func(request, *args, **kwargs):
             group = None
             if request.user.groups.exists():
-                print(request.user.groups)
-                group = request.user.groups.all()[0].name
+                group = request.user.groups.last().name
+                print(request.user.groups.all())
             if group in allowed_roles:
+                print(group in allowed_roles)
                 return view_func(request, *args, **kwargs)
             else:
                 return HttpResponse('You are not allow to be here')

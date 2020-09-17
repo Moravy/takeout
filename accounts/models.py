@@ -19,7 +19,18 @@ class Customer(models.Model):
         return self.user.username
 
 
+class CustomerProfile(models.Model):
+    user = models.OneToOneField(
+        User, on_delete=models.CASCADE, related_name='customer_profile')
+    image = models.ImageField(
+        default='default_male.svg', upload_to='profile_pics')
+
+    def __str__(self):
+        return f'{self.user.username} Profile'
+
 # Restaurant Models
+
+
 class Restaurant(models.Model):
     user = models.OneToOneField(
         User, on_delete=models.CASCADE, related_name='restaurant')
@@ -28,3 +39,22 @@ class Restaurant(models.Model):
 
     def __str__(self):
         return self.user.username
+
+
+class Menu(models.Model):
+    # restaurant = models.ForeignKey(
+    #     Restaurant, on_delete=models.CASCADE, related_name='restaurant_menu')
+    name = models.CharField(max_length=30)
+
+    def __str__(self):
+        return self.name
+# Order Models
+
+
+class Order(models.Model):
+    menu = models.ForeignKey(
+        Menu, null=True, on_delete=models.SET)
+    restaurant = models.ForeignKey(
+        Restaurant, null=True, on_delete=models.CASCADE, related_name='customer_order')
+    customer = models.ForeignKey(
+        Customer, null=True, on_delete=models.CASCADE, related_name='restaurant_order')

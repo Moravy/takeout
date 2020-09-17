@@ -1,8 +1,16 @@
 from django.contrib import admin
 from django.urls import path
 
+
+# VIEWS
 from . import views
 from django.contrib.auth import views as auth_views
+
+
+# MEDIA SERVING STATIC
+from django.conf import settings
+from django.conf.urls.static import static
+
 
 urlpatterns = [
     path('', views.home, name='home'),
@@ -15,8 +23,13 @@ urlpatterns = [
     path('customer/profile/', views.customer_profile, name='customer_profile'),
 
 
-    path('company/register/', views.company_register, name='restaurant_register'),
+    path('company/register/', views.company_register, name='company_register'),
     path('company/login/', auth_views.LoginView.as_view(
-        template_name='accounts/restaurant/login.html'), name='restaurant_login'),
-
+        template_name='accounts/restaurant/login.html'), name='company_login'),
+    path('company/profile/', views.company_profile, name='company_profile'),
 ]
+
+# IF WE ARE IN DEBUGGING MODE
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL,
+                          document_root=settings.MEDIA_ROOT)
