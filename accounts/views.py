@@ -1,7 +1,7 @@
 
 from django.shortcuts import render, redirect
 # Create your views here.
-from django.contrib.auth.models import AbstractUser, User
+from .models import User
 from .forms import CustomerForm, RestaurantForm, UserForm
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required, user_passes_test
