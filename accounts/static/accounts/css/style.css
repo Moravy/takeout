@@ -541,18 +541,26 @@ h6 {
   height: 100vh;
   max-height: auto;
   padding-top: 82px;
-  overflow-y: auto;
+  /* overflow-y: auto; */
 }
 
 #profile .parent{
   height: 100%;
   width: 100%;
+  display: grid;
+  grid-gap: 1rem;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+}
+
+#profile .box{
+  display: grid;
+  place-items: center;
 
 }
 
 #profile .card-deck{
   width: 90%;
- 
+
 }
 
 #profile .card-deck .card .card-body{
@@ -566,7 +574,7 @@ h6 {
   width: 40%;
 
 }
-#profile img{
+#profile .topcard img{
   
   width: 100px;
   height: 100px;
@@ -618,7 +626,7 @@ h6 {
 --------------------------------------------------------------*/
 section {
   padding: 60px 0;
-  overflow: hidden;
+  /* overflow: hidden; */
 }
 
 .section-bg {

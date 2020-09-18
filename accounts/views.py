@@ -59,10 +59,31 @@ def customer_register(request):
 @login_required(login_url='customer_login')
 @allow_users_group(allowed_roles=["customer", "admin"])
 def customer_profile(request):
-    context = {
-        "restaurants": Restaurant.objects.all()
-    }
+    # context = {
+    #     "restaurants": Restaurant.objects.all()
+    # }
+    restaurants = Restaurant.objects.all()
+    menu_list = [
+        # {
+        #name: restaurant.name
+        #menu: menu
+        #
+        # }
 
+    ]
+
+    for restaurant in restaurants:
+        menu = Menu.objects.filter(
+            restaurant=restaurant)
+        menu_list.append({
+            'name': restaurant.company_name,
+            'address': restaurant.address,
+            'menu_name': menu
+        })
+    context = {"restaurants": menu_list}
+    print(menu_list)
+
+    # print(Menu.objects.filter(restaurant=restaurant))
     return render(request, "accounts/profile.html", context)
 
 

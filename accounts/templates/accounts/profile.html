@@ -4,9 +4,9 @@
 {% block content %}
 <section class="container" id="profile">
     <div class=" mt-5">
-        <div class="text-center">
-        <h3> Hello, {{user.username}}</h3>
-        <img class="img-responsive " src="{{user.customer.image.url}}"/>
+        <div class="topcard text-center">
+            <h3> Hello, {{user.username}}</h3>
+            <img class="img-responsive " src="{{user.customer.image.url}}"/>
         </div>
         <div class="card-deck mt-5 mx-auto">
             <div class="card  text-center" >
@@ -26,9 +26,46 @@
         </div>
     </div>
     <div class="mt-5">
+        <div class="parent bg-warning mx-auto">
+            <div class="box bg-primary">1</div>
+            <div class="box bg-success ">2</div>
+        </div>
+
         {% for restaurant in restaurants %}
-            <h3> {{restaurant.company_name.upper()}}</h3>
-        {% endfor %}
+            <a class="ml-auto" data-toggle="collapse" href="#collapseExample{{ forloop.counter }}" role="button" aria-expanded="false" aria-controls="collapseExample">
+                <h5>{{restaurant.name}}</h5>
+            </a>
+            <div class="collapse" id="collapseExample{{ forloop.counter }}" >
+                <div class="parent mx-auto">
+                    {% for menu in restaurant.menu_name  %}
+                        <div class="box card text-center">
+                            <img src="{{menu.image.url}}" class="card-img-top" alt="..."/>  
+                            <div class="card-body">
+                                <h5 class="card-title">{{menu.name}}</h5>
+                                <p class="card-img">This is a longer card with supporting text below as a natural</p>
+                                <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+                            </div>
+                        
+                        </div>
+                    {% endfor %}
+                </div>
+                {% comment %} <div class="card-deck mx-auto">
+                    {% for menu in restaurant.menu_name  %}
+                    
+                        <div class="card text-center" >
+                            <img src="{{menu.image.url}}" class="card-img-top" alt="..."/>  
+                            <div class="card-body">
+                                <h5 class="card-title">{{menu.name}}</h5>
+                                <p class="card-img">This is a longer card with supporting text below as a natural</p>
+                                <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div> {% endcomment %}
+            </div>
+  
+            <hr>       
+        {% endfor %} 
     </div>
 
 </section>

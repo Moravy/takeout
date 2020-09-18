@@ -39,7 +39,7 @@ class Menu(models.Model):
         Restaurant, on_delete=models.CASCADE, related_name='restaurant_menu', null=True)
     name = models.CharField(max_length=30)
     image = models.ImageField(
-        default='default_food_pic.png', upload_to='profile_pics')
+        default='default_menu_pic.png', upload_to='menu_pics')
 
     def __str__(self):
         return self.name
@@ -48,11 +48,11 @@ class Menu(models.Model):
 
 class Order(models.Model):
     menu = models.ForeignKey(
-        Menu, null=True, on_delete=models.SET)
+        Menu, null=True, on_delete=models.SET_NULL)
     restaurant = models.ForeignKey(
-        Restaurant, null=True, on_delete=models.SET, related_name='customer_order')
+        Restaurant, null=True, on_delete=models.SET_NULL, related_name='customer_order')
     customer = models.ForeignKey(
-        Customer, null=True, on_delete=models.SET, related_name='restaurant_order')
+        Customer, null=True, on_delete=models.SET_NULL, related_name='restaurant_order')
 
     def __str__(self):
         return self.restaurant.company_name
