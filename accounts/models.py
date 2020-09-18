@@ -50,6 +50,9 @@ class Order(models.Model):
     menu = models.ForeignKey(
         Menu, null=True, on_delete=models.SET)
     restaurant = models.ForeignKey(
-        Restaurant, null=True, on_delete=models.CASCADE, related_name='customer_order')
+        Restaurant, null=True, on_delete=models.SET, related_name='customer_order')
     customer = models.ForeignKey(
-        Customer, null=True, on_delete=models.CASCADE, related_name='restaurant_order')
+        Customer, null=True, on_delete=models.SET, related_name='restaurant_order')
+
+    def __str__(self):
+        return self.restaurant.company_name

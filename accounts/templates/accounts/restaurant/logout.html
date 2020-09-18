@@ -1,0 +1,26 @@
+{% extends 'accounts/base.html' %} 
+{% load static %}
+{% load crispy_forms_tags%} 
+{% block content %}
+<section id="sign">
+    <div class="container parent">
+        <div>
+        <h2> You have logged out</h2>
+        <small class="text-muted">
+            <a href={% url 'company_login' %}><h6>Login Again</h6></a>
+        </small>
+        </div>
+    </div>
+</section>
+<!-- End Hero -->
+{% endblock content %}
+
+{% comment %} {% extends 'accounts/base.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+{% block content %}
+    <h2> You have been logged out</h2>
+        <small class="text-muted">
+            <a href={% url 'customer_login' %}>Login Again</a>
+        </small>
+{% endblock content %} {% endcomment %}

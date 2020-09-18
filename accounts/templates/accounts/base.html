@@ -1,4 +1,5 @@
 {% load static %}
+{% load extra_auth %}
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -68,17 +69,20 @@
 
         <nav class="nav-menu d-none d-lg-block">
           <ul>
-        {% if user.is_authenticated %}
-          <li class="active"><a href="{% url 'customer_profile' %}">Profile</a></li>
-          <a href={% url 'customer_logout' %} class="get-started-btn scrollto">Logout</a>
-        {% else %}
-          <li class="active"><a href="{% url 'home' %}">Home</a></li>
-          <li><a href="{% url 'home' %}#about">About</a></li>
-          <li><a href={% url 'customer_register' %}>Sign up</a></li>
-          
-          <a href={% url 'customer_login' %} class="get-started-btn scrollto">Login</a>
-        {% endif %}
-
+            {% if user.is_authenticated %}
+              {% if request.user|has_group:"customer" %}
+                <li class="active"><a href="{% url 'customer_profile' %}">Profile</a></li>
+                <a href={% url 'customer_logout' %} class="get-started-btn scrollto">Logout</a>
+              {% else %}
+                <li class="active"><a href="{% url 'company_profile' %}">Profile</a></li>
+                <a href={% url 'company_logout' %} class="get-started-btn scrollto">Logout</a
+              {% endif %}
+            {% else %}
+              <li class="active"><a href="{% url 'home' %}">Home</a></li>
+              <li><a href="{% url 'home' %}#about">About</a></li>
+              <li><a href={% url 'customer_register' %}>Sign up</a></li>
+              <a href={% url 'customer_login' %} class="get-started-btn scrollto">Login</a>
+            {% endif %}
           </ul>
         </nav>
         <!-- .nav-menu -->

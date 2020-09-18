@@ -6,6 +6,7 @@ from django.contrib.auth.models import User
 
 from django.contrib.auth.forms import UserCreationForm
 from .forms import CustomerForm, RestaurantForm
+
 from .models import *
 
 from django.contrib.auth.views import LoginView
@@ -58,7 +59,11 @@ def customer_register(request):
 @login_required(login_url='customer_login')
 @allow_users_group(allowed_roles=["customer", "admin"])
 def customer_profile(request):
-    return render(request, "accounts/profile.html")
+    context = {
+        "restaurants": Restaurant.objects.all()
+    }
+
+    return render(request, "accounts/profile.html", context)
 
 
 ######################### COMPANY #########################
