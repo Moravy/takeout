@@ -545,25 +545,39 @@ h6 {
 }
 
 #profile .parent{
+  justify-content: center;
+
   height: 100%;
   width: 100%;
-  display: grid;
-  grid-gap: 1rem;
-  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  display: flex;
+  flex-wrap: wrap;
+  /* display: grid;
+  grid-gap: 0.5rem;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 210px)); */
 }
+
+
+
+
 
 #profile .box{
-  display: grid;
-  place-items: center;
+  flex: 0 1 200px;
+  margin: 5px;
 
 }
 
-#profile .card-deck{
+
+
+#profile .border-bottom {
+  border-color: #63E8FF;
+}
+
+#profile .card{
   width: 90%;
-
+  
 }
 
-#profile .card-deck .card .card-body{
+#profile .card .card-body{
 
  display: flex;
  flex-direction: column ;
@@ -581,8 +595,9 @@ h6 {
   border-radius: 50%;
 }
 
-#profile h3,h6{
-  text-align: center;
+#profile h3,h6,h5{
+  
+  color: #3e4450;
 }
 
 

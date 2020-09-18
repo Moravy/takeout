@@ -3,45 +3,20 @@
 {% load crispy_forms_tags %}
 {% block content %}
 <section class="container mb-5" id="profile">
-    <div class=" mt-1">
-        <div class="topcard text-center">
-            <h3> Hello, {{user.username}}</h3>
-            <img class="img-responsive " src="{{user.customer.image.url}}"/>
-        </div>
-        <div class="card-deck mt-5 mx-auto">
-            <div class="card  text-center" >
-                <div class="card-body">
-                <h5 class="card-title">Order Status</h5>
-                <p class="card-text">This is a longer card with supporting text below as a natural</p>
-                <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
-                </div>
-            </div>
-            <div class="card  text-center" >
-                <div class="card-body">
-                <h5 class="card-title">Total Ordered This Week</h5>
-                <p class="card-text">This card has supporting text below as .</p>
-                <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
-                </div>
-            </div>
-        </div>
-    </div>
-{% comment %}     
-
-
     <div class="mt-3 bigParent">
         <h4 class="mt-3 mb-2 border-bottom border-secondary">Menu</h4>
 
             {% for restaurant in restaurants %}
-
                 <div class=" mt-3 text-center">
                     <a class="text-left" data-toggle="collapse" href="#collapseExample{{ forloop.counter }}" role="button" aria-expanded="false" aria-controls="collapseExample">
-                        <h5 class="border-bottom" >{{restaurant.name}}</h5>
+                        <h5 class="border-bottom" >{{restaurant.name.company_name}}</h5>
                     </a>
-            
                     <div class="collapse" id="collapseExample{{ forloop.counter }}" >
+                        
                         <div class="parent ">
                             {% for menu in restaurant.menu_name  %}
-                                <div class="box card text-center">
+                                
+                                <button data-product="{{menu.id}}" data-action="add" class="update-cart box card text-center">
                                     <img src="{{menu.image.url}}" class="card-img-top" alt="..."/>  
                                     <div class="card-body">
                                         <h5 class="card-title">{{menu.name}}</h5>
@@ -49,7 +24,7 @@
                                         <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
                                     </div>
                                 
-                                </div>
+                                </button>
                             {% endfor %}
                         </div>
                         
@@ -59,8 +34,8 @@
                     </div>
 
                 </div>
-            {% endfor %}  {% endcomment %}
+            {% endfor %} 
     </div>
 
 </section>
-{% endblock content %}
+{% endblock %}

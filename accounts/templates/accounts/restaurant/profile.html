@@ -3,9 +3,8 @@
 {% load crispy_forms_tags %}
 {% block content %}
 <section class="container" id="profile">
-    <div class=" mt-5">
+    <div class=" mt-5 text-center">
         <h3> Hello, {{user.username}}</h3>
-
         <div class="card-deck mt-5 mx-auto">
             <div class="card  text-center" >
                 <div class="card-body">
@@ -24,6 +23,59 @@
         </div>
     </div>
     
+    <div class="mt-3 ">
+        <h4 class="mt-3 mb-2 border-bottom border-secondary">Menu</h4>
+        <div class="parent ">
+            {% for menu in menu_list  %}
+                <div class="box card text-center">
+                    <img src="{{menu.image.url}}" class="card-img-top" alt="..."/>  
+                    <div class="card-body">
+                        <h5 class="card-title">{{menu.name}}</h5>
+                        <p class="card-img">This is a longer card with supporting text below as a natural</p>
+                        <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+                    </div>
+                
+                </div>
+            {% endfor %}
+                <button class="box card text-center btn btn-outline-success" data-toggle="modal" data-target="#exampleModal">
+     
+                    <div class="card-body">
+                        <h5 class="card-title"></h5>
+                        <p class="card-img"><i class="fa fa-plus"></i></p>
+                        <p class="card-text"><small class="text-muted"></small></p>
+                    </div>
+                
+                </button>
+                
+        </div>
+    
+        
+    </div>
 
+
+<!-- Modal -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Add food</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <form class="w-auto" method="POST">
+                    <div class="modal-body">
+                        {% csrf_token %}
+                        {{menu_form|crispy}}         
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">Save changes</button>
+                    </div>
+                </form>
+            </div>
+
+        </div>
+    </div>
 </section>
 {% endblock content %}

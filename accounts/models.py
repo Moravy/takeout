@@ -36,7 +36,7 @@ class Restaurant(models.Model):
 
 class Menu(models.Model):
     restaurant = models.ForeignKey(
-        Restaurant, on_delete=models.CASCADE, related_name='restaurant_menu', null=True)
+        Restaurant, null=True, on_delete=models.SET_NULL)
     name = models.CharField(max_length=30)
     image = models.ImageField(
         default='default_menu_pic.png', upload_to='menu_pics')
@@ -47,12 +47,23 @@ class Menu(models.Model):
 
 
 class Order(models.Model):
+    STATUS = (
+        ("Pending", "Pending"),
+        ("Coming", "Coming"),
+        ("Done", "Done"),
+    )
+
     menu = models.ForeignKey(
         Menu, null=True, on_delete=models.SET_NULL)
+
     restaurant = models.ForeignKey(
-        Restaurant, null=True, on_delete=models.SET_NULL, related_name='customer_order')
+        Restaurant, null=True, on_delete=models.SET_NULL)
+
     customer = models.ForeignKey(
-        Customer, null=True, on_delete=models.SET_NULL, related_name='restaurant_order')
+        Customer, null=True, on_delete=models.SET_NULL)
+
+    status = models.CharField(
+        max_length=200, null=True, choices=STATUS, default=("Pending", "Pending"))
 
     def __str__(self):
-        return self.restaurant.company_name
+        return self.menu.name

@@ -1,11 +1,13 @@
 
 from django.shortcuts import resolve_url
 from django.shortcuts import render, redirect
+from django.http import JsonResponse
+import json
 # Create your views here.
 from django.contrib.auth.models import User
 
 from django.contrib.auth.forms import UserCreationForm
-from .forms import CustomerForm, RestaurantForm
+from .forms import CustomerForm, RestaurantForm, MenuForm
 
 from .models import *
 
@@ -54,43 +56,68 @@ def customer_register(request):
 # path "/customer/profile"
 # if not login, redirect to login
 # if user not in the allowed_roles, cant view profile
-
+# Get all the restaurant and its menu
 
 @login_required(login_url='customer_login')
 @allow_users_group(allowed_roles=["customer", "admin"])
 def customer_profile(request):
-    # context = {
-    #     "restaurants": Restaurant.objects.all()
-    # }
+    # restaurants = Restaurant.objects.all()
+    # menu_list = []
+    # for restaurant in restaurants:
+    #     menu = Menu.objects.filter(
+    #         restaurant=restaurant)
+    #     menu_list.append({
+    #         'name': restaurant.company_name,
+    #         'address': restaurant.address,
+    #         'menu_name': menu
+    #     })
+    # context = {"restaurants": menu_list}
+    # print(menu_list)
+    return render(request, "accounts/profile.html")
+
+
+def customer_menu(request):
     restaurants = Restaurant.objects.all()
-    menu_list = [
-        # {
-        #name: restaurant.name
-        #menu: menu
-        #
-        # }
-
-    ]
-
+    menu_list = []
     for restaurant in restaurants:
         menu = Menu.objects.filter(
             restaurant=restaurant)
         menu_list.append({
-            'name': restaurant.company_name,
+            'name': restaurant,
             'address': restaurant.address,
             'menu_name': menu
         })
     context = {"restaurants": menu_list}
-    print(menu_list)
-
-    # print(Menu.objects.filter(restaurant=restaurant))
-    return render(request, "accounts/profile.html", context)
+    return render(request, "accounts/menu.html", context)
 
 
+@login_required(login_url='customer_login')
+@allow_users_group(allowed_roles=["customer", "admin"])
+def create_order(request):
+    data = json.loads(request.body)
+    menu_id = data['menu_id']
+    menu = Menu.objects.get(id=menu_id)
+    restaurant = Restaurant.objects.get(menu=menu)
+    new_order = Order(menu=menu, restaurant=restaurant,
+                      customer=request.user.customer)
+    new_order.save()
+    return JsonResponse('Item was added', safe=False)
+
+
+@login_required(login_url='customer_login')
+@allow_users_group(allowed_roles=["customer", "admin"])
+def customer_cart(request):
+    orders = request.user.customer.order_set.all()
+    context = {
+        'orders': orders
+    }
+
+    return render(request,  "accounts/cart.html", context)
 ######################### COMPANY #########################
 
 # path "/customer/register"
 # create user, put user in customer group, create customer, and save
+
 
 def company_register(request):
     user_form = UserCreationForm()
@@ -121,8 +148,23 @@ def company_register(request):
 @login_required(login_url='company_login')
 @allow_users_group(allowed_roles=["restaurant", "admin"])
 def company_profile(request):
-    return render(request, "accounts/restaurant/profile.html")
+    menu = request.user.restaurant.menu_set.all()
+    menu_form = MenuForm()
+    if request.method == 'POST':
+        menu_form = MenuForm(request.POST)
+        if menu_form.is_valid():
+            new_menu = menu_form.save(commit=False)
+            new_menu.restaurant = request.user.restaurant
+            menu_form.save()
+            redirect(company_profile)
+    context = {
+        "menu_list": menu,
+        "menu_form": menu_form
+    }
+    return render(request, "accounts/restaurant/profile.html", context,)
 
+
+# LOGINVIEW
 
 class RestaurantLoginView(LoginView):
     template_name = 'accounts/restaurant/login.html'

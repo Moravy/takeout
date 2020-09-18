@@ -51,6 +51,27 @@
       href="{% static 'accounts/css/style.css' %}"
     />
 
+
+    <script type="text/javascript">
+      var user= '{{request.user}}'
+      function getCookie(name) {
+          let cookieValue = null;
+          if (document.cookie && document.cookie !== '') {
+              const cookies = document.cookie.split(';');
+              for (let i = 0; i < cookies.length; i++) {
+                  const cookie = cookies[i].trim();
+                  // Does this cookie string begin with the name we want?
+                  if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                      cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                      break;
+                  }
+              }
+          }
+          return cookieValue;
+      }
+      const csrftoken = getCookie('csrftoken');
+    </script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <!-- =======================================================
   * Template Name: eNno - v2.1.0
   * Template URL: https://bootstrapmade.com/enno-free-simple-bootstrap-template/
@@ -72,14 +93,18 @@
             {% if user.is_authenticated %}
               {% if request.user|has_group:"customer" %}
                 <li class="active"><a href="{% url 'customer_profile' %}">Profile</a></li>
+                <li class="active"><a href="{% url 'customer_menu' %}">Menu</a></li>
+                <li class="active"><a href="{% url 'customer_cart' %}"><i class="fa fa-shopping-cart"></i></a></li>
                 <a href={% url 'customer_logout' %} class="get-started-btn scrollto">Logout</a>
               {% else %}
                 <li class="active"><a href="{% url 'company_profile' %}">Profile</a></li>
+                <li class="active"><a href="{% url 'customer_menu' %}">Menu</a></li>
                 <a href={% url 'company_logout' %} class="get-started-btn scrollto">Logout</a
               {% endif %}
             {% else %}
               <li class="active"><a href="{% url 'home' %}">Home</a></li>
-              <li><a href="{% url 'home' %}#about">About</a></li>
+              <li class="active"><a href="{% url 'customer_menu' %}">Menu</a></li>
+    
               <li><a href={% url 'customer_register' %}>Sign up</a></li>
               <a href={% url 'customer_login' %} class="get-started-btn scrollto">Login</a>
             {% endif %}
@@ -101,7 +126,11 @@
     <!--end main -->
 
     <!-- ======= Footer ======= -->
+      <!-- ======= Footer ======= -->
+ 
 
+
+  </footer><!-- End Footer -->
     <a href="#" class="back-to-top"><i class="icofont-simple-up"></i></a>
 
     <!-- Vendor JS Files -->
@@ -132,5 +161,6 @@
 
     <!-- Template Main JS File -->
     <script src="{% static 'accounts/js/main.js'%}"></script>
+    <script src="{% static 'accounts/js/cart.js'%}"></script>
   </body>
 </html>

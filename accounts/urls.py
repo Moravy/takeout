@@ -21,6 +21,9 @@ urlpatterns = [
     path('customer/logout/', auth_views.LogoutView.as_view(
          template_name='accounts/logout.html'), name='customer_logout'),
     path('customer/profile/', views.customer_profile, name='customer_profile'),
+    path('customer/menu/', views.customer_menu, name='customer_menu'),
+    path('customer/create_order/', views.create_order, name='customer_order'),
+    path('customer/customer_cart/', views.customer_cart, name='customer_cart'),
 
 
     path('company/register/', views.company_register, name='company_register'),
