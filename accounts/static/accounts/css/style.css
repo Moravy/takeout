@@ -566,7 +566,23 @@ h6 {
 
 }
 
+#profile .addButton {
+  transition-property: color;
+  /* transition-property: color; */
+  transition-duration: 1s;
+  /* color:white !important; */
+  color:green !important;
 
+}
+#profile .addButton:hover{
+  transition-property: color !important;
+  transition-duration: 0s !important;
+  color:white !important;
+}
+
+#profile .addButton .logo:hover {
+
+}
 
 #profile .border-bottom {
   border-color: #63E8FF;
@@ -582,6 +598,10 @@ h6 {
  display: flex;
  flex-direction: column ;
  justify-content: space-between;
+}
+
+#profile .text-success, .text-dark{
+  font-size:1.5rem !important;
 }
 
 #profile form{

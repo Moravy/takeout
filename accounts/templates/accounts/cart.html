@@ -3,30 +3,45 @@
 {% load crispy_forms_tags %}
 {% block content %}
 <section class="container mb-5" id="profile">
-    <div class="mt-3 bigParent">
-        <h4 class="mt-3 mb-2 border-bottom border-secondary">Cart</h4>
+    <div class="mt-3 ">
+        <h4 class="mt-3 mb-2 border-bottom border-secondary ">Cart</h4>
         <div class="parent ">
-            {% for order in orders  %}
-                <div class="box card text-center">
-                    <img src="{{order.menu.image.url}}" class="card-img-top" alt="..."/>  
-                    <div class="card-body">
-                        <h5 class="card-title">{{order.menu.name}}</h5>
+            {% for cart in carts  %}
+                <button data-product="{{cart.id}}" data-action="delete" class=" view overlay box card text-center update-cart">
+                    <img src="{{cart.menu.image.url}}" class="card-img-top" alt="..."/>  
+                    <div class="card-body ">
+                        <h5 class="card-title">{{cart.menu.name}}</h5>
                         <p class="card-img">This is a longer card with supporting text below as a natural</p>
-                        <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+                        <p class="card-text "><small class="text-muted">Last updated 3 mins ago</small></p>
                     </div>
-                
-                </div>
+                    <div class="mask flex-center rgba-red-strong">
+                        <p class="white-text"></p>
+                    </div>
+                </button>
             {% endfor %}
-                <a class="box card text-center btn btn-outline-success" href="{% url 'customer_menu' %}">
-     
+
+                <a class="box card text-center view overlay addButton" href="{% url 'customer_menu' %}">
+                    
                     <div class="card-body">
                         <h5 class="card-title"></h5>
-                        <p class="card-img"><i class="fa fa-plus"></i></p>
-                        <p class="card-text"><small class="text-muted"></small></p>
+                        <p class="card-img"><i class="fa fa-plus "></i></p>
+                        <p class="card-text "><small class="text-muted"></small></p>
                     </div>
-                
+                    
+                    <div class="mask flex-center rgba-green-strong">
+                        <p class="white-text logo"><i class="fa fa-plus"></i></p>
+                    </div>
                 </a>
                 
         </div>
+    <div class="text-center">
+        <button class="mt-2 mb-3 view overlay btn btn-outline-info update-cart" data-action="order_item" data-product="-1">
+            Submit
+            <div class="mask flex-center rgba-blue-strong">
+                <p class="white-text"></p>
+            </div>  
+        </button>
+    </div>
+
 </section>
 {% endblock %}

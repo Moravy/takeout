@@ -46,6 +46,21 @@ class Menu(models.Model):
 # Order Models
 
 
+class Cart(models.Model):
+
+    menu = models.ForeignKey(
+        Menu, null=True, on_delete=models.SET_NULL)
+
+    restaurant = models.ForeignKey(
+        Restaurant, null=True, on_delete=models.SET_NULL)
+
+    customer = models.ForeignKey(
+        Customer, null=True, on_delete=models.SET_NULL)
+
+    def __str__(self):
+        return self.menu.name
+
+
 class Order(models.Model):
     STATUS = (
         ("Pending", "Pending"),

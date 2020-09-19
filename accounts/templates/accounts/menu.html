@@ -15,21 +15,26 @@
                         
                         <div class="parent ">
                             {% for menu in restaurant.menu_name  %}
-                                
-                                <button data-product="{{menu.id}}" data-action="add" class="update-cart box card text-center">
+    
+                                <button data-product="{{menu.id}}" data-action="add" class=" view overlay box card text-center update-cart">
                                     <img src="{{menu.image.url}}" class="card-img-top" alt="..."/>  
                                     <div class="card-body">
                                         <h5 class="card-title">{{menu.name}}</h5>
                                         <p class="card-img">This is a longer card with supporting text below as a natural</p>
                                         <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
                                     </div>
-                                
+                                    <div class="mask flex-center rgba-blue-strong">
+                                        <p class="white-text"></p>
+                                    </div>            
                                 </button>
                             {% endfor %}
                         </div>
                         
-                        <button class="mt-2 mb-3 btn btn-outline-info" data-toggle="collapse" href="#collapseExample{{ forloop.counter }}" role="button" aria-expanded="false" aria-controls="collapseExample">
+                        <button class="mt-2 mb-3 view overlay btn btn-outline-info" data-toggle="collapse" href="#collapseExample{{ forloop.counter }}" role="button" aria-expanded="false" aria-controls="collapseExample">
                             showless
+                            <div class="mask flex-center rgba-blue-strong">
+                                        <p class="white-text"></p>
+                                    </div>  
                         </button>
                     </div>
 

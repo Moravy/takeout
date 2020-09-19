@@ -2,23 +2,27 @@ var updateBtn = document.getElementsByClassName("update-cart")
 
 for (var i = 0; i < updateBtn.length; i++) {
     updateBtn[i].addEventListener("click", function () {
-        var menu_id = this.dataset.product
-        var action = this.dataset.action
+        var menu_id = this.dataset.product;
+        var action = this.dataset.action;
+        var customer;
+        if (this.dataset.customer) {
+            var customer = this.dataset.customer;
+        }
+
+
         console.log(menu_id, action)
 
         if (user === 'AnonymousUser') {
             console.log("NOT LOGGED IN")
         } else {
-            sendingUpdateOrder(menu_id, action)
+            sendingUpdateOrder(menu_id, action, customer)
         }
-    }
-
-    )
+    })
 }
 
-sendingUpdateOrder = (menu_id, action) => {
-    console.log(menu_id, action)
-    var url = '/customer/create_order/'
+sendingUpdateOrder = (menu_id, action, customer) => {
+    console.log(menu_id, action, customer)
+    var url = '/customer/update_order/'
 
     fetch(url, {
         method: 'POST',
@@ -26,7 +30,7 @@ sendingUpdateOrder = (menu_id, action) => {
             'Content-Type': 'application/json',
             'X-CSRFToken': csrftoken
         },
-        body: JSON.stringify({ 'menu_id': menu_id, 'action': action })
+        body: JSON.stringify({ 'menu_id': menu_id, 'action': action, 'customer': customer })
 
     }).then((response) => {
         return response.json()
