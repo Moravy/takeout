@@ -1,5 +1,5 @@
 from accounts.models import *
-user1 = User.objects.get(username="jo")
+user1 = User.objects.get(username="joey")
 cus1 = Customer.objects.get(user=user1)
 CustomerProfile.objects.create(user=cus1)
 restaurant = Restaurant.objects.get(company_name="mcdonald")

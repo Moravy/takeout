@@ -24,7 +24,7 @@ from django.contrib.auth.models import Group
 
 
 def home(request):
-    return render(request, "accounts/base.html")
+    return render(request, "accounts/home.html")
 
 ######################### CUSTOMER #########################
 
@@ -74,6 +74,9 @@ def customer_profile(request):
     # context = {"restaurants": menu_list}
     # print(menu_list)
     return render(request, "accounts/profile.html")
+
+# path "/customer/menu"
+# list all the menu from each restaurant
 
 
 def customer_menu(request):

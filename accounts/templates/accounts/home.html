@@ -1,0 +1,64 @@
+{% extends 'accounts/base.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+{% block content %}
+<section id="hero" class="d-flex align-items-center">
+
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-6 pt-5 pt-lg-0 order-2 order-lg-1 d-flex flex-column justify-content-center">
+          <h1>Hungry?</h1>
+          <h2>Check out our menu</h2>
+          <div class="d-flex">
+            <a href="{% url 'customer_menu' %}" class="btn-get-started scrollto">Menu</a>
+            <a href="{% url 'customer_login' %}" class="btn-get-started ml-5">Login</i></a>
+          </div>
+        </div>
+        <div class="col-lg-6 order-1 order-lg-2 hero-img">
+          <img src="{% static "accounts/img/home.svg"%}" class="img-fluid animated" alt="">
+        </div>
+      </div>
+    </div>
+  </section><!-- End Hero -->
+
+  <main id="main">
+    <!-- ======= About Section ======= -->
+    <section id="about" class="about">
+      <div class="container">
+        <div class="section-title">
+          <span>About me</span>
+          <h2>About me</h2>
+
+        </div>
+
+        <div class="row">
+          <div class="col-lg-6">
+            <img src="{% static "accounts/img/about.png"%}" class="img-fluid" alt="">
+          </div>
+          <div class="col-lg-6 pt-4 pt-lg-0 content">
+            <h3 style="color:#2a93f7">Take Out</h3>
+            <p class="font-italic">
+              <strong> Technology </strong>: Information Technology, Computer Science
+              <br>
+              <strong> Languages </strong>: Python, JavaScript, HTML/CSS, ORM
+              <br>
+              <strong> Tools </strong>: Django, Sqlite
+            </p>
+           
+            <p>
+              Hi, I am only making this to learn the django framework and better understand the Full-Stack development. 
+              <br>
+              
+            </p>
+
+             <ul>
+              <li><i class="icofont-check-circled"></i>Can order?</li>
+              <li><i class="icofont-check-circled"></i>User type: Admin, Resturant, Customer?</li>
+              <li><i class="icofont-question"></i>Driver?</li>
+            </ul>
+          </div>
+        </div>
+
+      </div>
+    </section><!-- End About Section -->
+{% endblock %}
