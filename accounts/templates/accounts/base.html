@@ -110,7 +110,7 @@
               <li class="active"><a href="{% url 'home' %}">Home</a></li>
               <li class="active"><a href="{% url 'customer_menu' %}">Menu</a></li>
     
-              <li><a href={% url 'customer_register' %}>Sign up</a></li>
+              <li><a href={% url 'register_customer' %}>Sign up</a></li>
               <a href={% url 'customer_login' %} class="get-started-btn scrollto">Login</a>
             {% endif %}
           </ul>
@@ -118,7 +118,7 @@
         <!-- .nav-menu -->
        
         <div>
-          <a class="text-primary" href={% url 'company_register' %}>Sign up</a>
+          <a class="text-primary" href={% url 'register_company' %}>Sign up</a>
           <a class="text-primary" href={% url 'company_login' %}>Login</a>
         </div>
       </div>

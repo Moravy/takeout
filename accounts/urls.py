@@ -15,7 +15,7 @@ from django.conf.urls.static import static
 urlpatterns = [
     path('', views.home, name='home'),
 
-    path('customer/register/', views.customer_register, name='customer_register'),
+    path('customer/register/', views.register_customer, name='register_customer'),
     path('customer/login/', auth_views.LoginView.as_view(
         template_name='accounts/login.html'), name='customer_login'),
     path('customer/logout/', auth_views.LogoutView.as_view(
@@ -26,7 +26,7 @@ urlpatterns = [
     path('customer/cart/', views.customer_cart, name='customer_cart'),
 
 
-    path('company/register/', views.company_register, name='company_register'),
+    path('company/register/', views.register_company, name='register_company'),
     path('company/login/', views.RestaurantLoginView.as_view(
         template_name='accounts/restaurant/login.html'), name='company_login'),
     path('company/logout/', auth_views.LogoutView.as_view(
