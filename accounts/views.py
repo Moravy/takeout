@@ -32,7 +32,7 @@ def home(request):
 # create user, put user in customer group, create customer, and save
 
 
-def customer_register(request):
+def register_customer(request):
     user_form = UserCreationForm()
     customer_form = CustomerForm()
     if request.method == 'POST':
@@ -112,7 +112,7 @@ def customer_cart(request):
 # create user, put user in customer group, create customer, and save
 
 
-def company_register(request):
+def register_company(request):
     user_form = UserCreationForm()
     restaurant_form = RestaurantForm()
     if request.method == 'POST':
