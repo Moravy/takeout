@@ -4,9 +4,10 @@ from django.template.defaulttags import register
 # let template check for group
 
 
-@register.filter(name='has_group')
+@register.filter(name="has_group")
 def has_group(user, group_name):
     return user.groups.filter(name=group_name).exists()
+
 
 # let template get the value of the key
 # {{dictionary|get_item:key}}
@@ -15,6 +16,7 @@ def has_group(user, group_name):
 @register.filter
 def get_item(dictionary, key):
     return dictionary.get(key)
+
 
 # let template get the each value.id in values from keys
 # {{dictionary|get_item:key}}

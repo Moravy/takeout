@@ -8,8 +8,13 @@ class CustomerForm(forms.ModelForm):
         model = Customer
         fields = ("address",)
         widgets = {
-            'address': forms.TextInput(
-                attrs={'placeholder': 'Address', 'id': 'autocomplete', 'type': 'text'}),
+            "address": forms.TextInput(
+                attrs={
+                    "placeholder": "Address",
+                    "id": "autocomplete",
+                    "type": "text",
+                }
+            ),
         }
 
 
@@ -18,9 +23,8 @@ class RestaurantForm(forms.ModelForm):
         model = Restaurant
         fields = ("company_name", "address")
         widgets = {
-            'company_name': forms.TextInput(attrs={'placeholder': 'Name'}),
-            'address': forms.TextInput(
-                attrs={'placeholder': 'Address'}),
+            "company_name": forms.TextInput(attrs={"placeholder": "Name"}),
+            "address": forms.TextInput(attrs={"placeholder": "Address"}),
         }
 
 
@@ -31,7 +35,7 @@ class MenuForm(forms.ModelForm):
         model = Menu
         fields = ("name",)
         widgets = {
-
-            'name': forms.TextInput(
-                attrs={'placeholder': 'name', 'size': '50'}),
+            "name": forms.TextInput(
+                attrs={"placeholder": "name", "size": "50"}
+            ),
         }
