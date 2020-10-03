@@ -19,11 +19,13 @@ from django.contrib.auth.decorators import login_required, user_passes_test
 from .decorators import allow_users_group
 from django.contrib.auth.models import Group
 
+from .navigation import get_routes
 # path ""
 # return home
 
 
 def home(request):
+    print(get_routes(((8.34234, 48.23424), (8.34423, 48.26424))))
     return render(request, "accounts/home.html")
 
 ######################### CUSTOMER #########################
