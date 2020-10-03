@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser, User
+
 # Create your models here.
 
 
@@ -12,10 +13,12 @@ from django.contrib.auth.models import AbstractUser, User
 
 class Customer(models.Model):
     user = models.OneToOneField(
-        User, on_delete=models.CASCADE, related_name='customer')
+        User, on_delete=models.CASCADE, related_name="customer"
+    )
     address = models.CharField(max_length=100)
     image = models.ImageField(
-        default='default_male.svg', upload_to='profile_pics')
+        default="default_male.svg", upload_to="profile_pics"
+    )
 
     def __str__(self):
         return self.user.username
@@ -26,7 +29,8 @@ class Customer(models.Model):
 
 class Restaurant(models.Model):
     user = models.OneToOneField(
-        User, on_delete=models.CASCADE, related_name='restaurant')
+        User, on_delete=models.CASCADE, related_name="restaurant"
+    )
     company_name = models.CharField(max_length=100)
     address = models.CharField(max_length=500, blank=True)
 
@@ -36,26 +40,31 @@ class Restaurant(models.Model):
 
 class Menu(models.Model):
     restaurant = models.ForeignKey(
-        Restaurant, null=True, on_delete=models.SET_NULL)
+        Restaurant, null=True, on_delete=models.SET_NULL
+    )
     name = models.CharField(max_length=30)
     image = models.ImageField(
-        default='default_menu_pic.png', upload_to='menu_pics')
+        default="default_menu_pic.png", upload_to="menu_pics"
+    )
 
     def __str__(self):
         return self.name
+
+
 # Order Models
 
 
 class Cart(models.Model):
 
-    menu = models.ForeignKey(
-        Menu, null=True, on_delete=models.SET_NULL)
+    menu = models.ForeignKey(Menu, null=True, on_delete=models.SET_NULL)
 
     restaurant = models.ForeignKey(
-        Restaurant, null=True, on_delete=models.SET_NULL)
+        Restaurant, null=True, on_delete=models.SET_NULL
+    )
 
     customer = models.ForeignKey(
-        Customer, null=True, on_delete=models.SET_NULL)
+        Customer, null=True, on_delete=models.SET_NULL
+    )
 
     def __str__(self):
         return self.menu.name
@@ -68,17 +77,22 @@ class Order(models.Model):
         ("Done", "Done"),
     )
 
-    menu = models.ForeignKey(
-        Menu, null=True, on_delete=models.SET_NULL)
+    menu = models.ForeignKey(Menu, null=True, on_delete=models.SET_NULL)
 
     restaurant = models.ForeignKey(
-        Restaurant, null=True, on_delete=models.SET_NULL)
+        Restaurant, null=True, on_delete=models.SET_NULL
+    )
 
     customer = models.ForeignKey(
-        Customer, null=True, on_delete=models.SET_NULL)
+        Customer, null=True, on_delete=models.SET_NULL
+    )
 
     status = models.CharField(
-        max_length=200, null=True, choices=STATUS, default=("Pending", "Pending"))
+        max_length=200,
+        null=True,
+        choices=STATUS,
+        default=("Pending", "Pending"),
+    )
 
     def __str__(self):
         return self.menu.name
