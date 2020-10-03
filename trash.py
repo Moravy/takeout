@@ -1,4 +1,5 @@
-from accounts.models import *
+from accounts.models import User, Customer, Restaurant, Menu, CustomerProfile
+
 user1 = User.objects.get(username="jo")
 cus1 = Customer.objects.get(user=user1)
 CustomerProfile.objects.create(user=cus1)
