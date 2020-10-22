@@ -1,6 +1,7 @@
 from django.shortcuts import resolve_url
 from django.shortcuts import render, redirect
 from django.http import JsonResponse
+from django.contrib import messages
 import json
 
 # Create your views here.
@@ -13,19 +14,32 @@ from .models import Restaurant, Menu, Cart, Order, Customer
 
 from django.contrib.auth.views import LoginView
 from django.conf import settings
+from collections import defaultdict
 
-from django.contrib import messages
 from django.contrib.auth.decorators import login_required, user_passes_test
 from .decorators import allow_users_group
 from django.contrib.auth.models import Group
 
-from .navigation import get_routes
+from .navigation import Navigation
 # path ""
 # return home
 
 
 def home(request):
-    print(get_routes(((8.34234, 48.23424), (8.34423, 48.26424))))
+    # directions = Navigation.get_directions("Sydney", "Melbourne")
+    # print(directions)
+    # import folium
+
+
+    # m = folium.Map([51.5, -0.25], zoom_start=10)
+    # test = folium.Html('<b>Hello world</b>', script=True)
+    # popup = folium.Popup(test, max_width=2650)
+    # folium.RegularPolygonMarker(location=[51.5, -0.25], popup=popup).add_to(m)
+    # m=m._repr_html_() #updated
+    # context = {'my_map': m}
+
+
+
     return render(request, "accounts/home.html")
 
 
@@ -66,22 +80,16 @@ def register_customer(request):
 # Get all the restaurant and its menu
 
 
-@login_required(login_url="customer_login")
-@allow_users_group(allowed_roles=["customer", "admin"])
+@ login_required(login_url="customer_login")
+@ allow_users_group(allowed_roles=["customer", "admin"])
 def customer_profile(request):
-    # restaurants = Restaurant.objects.all()
-    # menu_list = []
-    # for restaurant in restaurants:
-    #     menu = Menu.objects.filter(
-    #         restaurant=restaurant)
-    #     menu_list.append({
-    #         'name': restaurant.company_name,
-    #         'address': restaurant.address,
-    #         'menu_name': menu
-    #     })
-    # context = {"restaurants": menu_list}
-    # print(menu_list)
-    return render(request, "accounts/profile.html")
+    customer_order = request.user.customer.order_set.exclude(status="Done")
+    history_order = request.user.customer.order_set.filter(status="Done")
+    context = {
+        "history_order": history_order,
+        "customer_order": customer_order}
+    
+    return render(request, "accounts/profile.html",context)
 
 # path "/customer/menu"
 # list all the menu from each restaurant
@@ -169,8 +177,8 @@ def company_profile(request):
             redirect(company_profile)
 
     # Get all the restaurant order
-    all_order = request.user.restaurant.order_set.all()
-
+    all_order = request.user.restaurant.order_set.filter(status="Pending").order_by("customer_id")
+    
     # if there is order change color
     if 0 < len(all_order):
         color = "text-success"
@@ -178,21 +186,23 @@ def company_profile(request):
         color = "text-dark"
 
     # dictionary the user to their list of order
-    from collections import defaultdict
-
+  
+    
     customer = defaultdict(list)
-    order_length = 0
+    from django.core.serializers import serialize
+    
+    print(json.loads(serialize('json', all_order,fields=('nam',''))))
+  
+    
     for i in all_order:
-        if i.status == "Pending":
-            order_length += 1
-            customer[i.customer.user.username].append(i.menu)
+        customer[i.customer.user.username].append(i)
     customers = dict(customer)
-
+    print(customers)
     context = {
         "customers": customers,
-        "order_length": order_length,
-        "color": color,
-        "menu_list": menu,
+    #     "order_length": order_length,
+    #     "color": color,
+    #     "menu_list": menu,
         "menu_form": menu_form,
     }
     return render(
@@ -248,19 +258,14 @@ def update_order(request):
         return redirect("customer_cart")
 
     # Changing order status
-    elif data["action"] == "delete_order":
-        list_of_order = data["menu_id"]
-        customer_data = data["customer"]
-        user1 = User.objects.get(username=customer_data)
-        customer = Customer.objects.get(user=user1)
-        list_of_order = [
-            i for i in list_of_order if i not in ["[", "]", ",", " "]
-        ]
-        for i in list_of_order:
-            menu = Menu.objects.get(id=i)
-            order_status = Order.objects.get(customer=customer, menu=menu)
-            order_status.status = "Coming"
-            order_status.save()
+    elif data["action"] == "coming_status":
+        customer=data["customer"]
+        list_of_order = request.user.restaurant.order_set.filter(customer__user__username=customer)
+        for order in list_of_order:
+            order.status = "Coming"
+            order.save()
+
+    
     return JsonResponse("Item was added", safe=False)
 
 

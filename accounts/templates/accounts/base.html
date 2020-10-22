@@ -98,40 +98,47 @@
           <ul>
             {% if user.is_authenticated %}
               {% if request.user|has_group:"customer" %}
-                <li class="active"><a href="{% url 'customer_profile' %}">Profile</a></li>
-                <li class="active"><a href="{% url 'customer_menu' %}">Menu</a></li>
-                <li class="active"><a href="{% url 'customer_cart' %}">Cart</a></li>
+                <li ><a href="{% url 'customer_profile' %}">Profile</a></li>
+                <li ><a href="{% url 'customer_menu' %}">Menu</a></li>
+                <li ><a href="{% url 'customer_cart' %}">Cart</a></li>
                 <a href={% url 'customer_logout' %} class="get-started-btn scrollto">Logout</a>
               {% else %}
-                <li class="active"><a href="{% url 'company_profile' %}">Profile</a></li>
-                <li class="active"><a href="{% url 'customer_menu' %}">Menu</a></li>
-                <a href={% url 'company_logout' %} class="get-started-btn scrollto">Logout</a
+                <li ><a href="{% url 'company_profile' %}">Profile</a></li>
+                <li ><a href="{% url 'customer_menu' %}">Menu</a></li>
+                <a href={% url 'company_logout' %} class="get-started-btn scrollto">Logout</a>
               {% endif %}
             {% else %}
-              <li class="active"><a href="{% url 'home' %}">Home</a></li>
-              <li class="active"><a href="{% url 'customer_menu' %}">Menu</a></li>
-    
+              <li ><a href="{% url 'home' %}">Home</a></li>
+              <li ><a href="{% url 'customer_menu' %}">Menu</a></li>
+
               <li><a href={% url 'register_customer' %}>Sign up</a></li>
-              <a href={% url 'customer_login' %} class="get-started-btn scrollto">Login</a>
+              <li><a href={% url 'customer_login' %}>Login</a></li>
+              <div class="dropdown show">
+                <a class="get-started-btn scrollto" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  Restaurant
+                </a>
+
+                <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                  <li><a class="text-primary" href={% url 'register_company' %}>Sign up</a></li>
+                  <li><a class="text-primary" href={% url 'company_login' %}>Login</a></li>
+                </div>
+              </div>
+         
+              
             {% endif %}
           </ul>
         </nav>
         <!-- .nav-menu -->
-       
-        <div>
-          <a class="text-primary" href={% url 'register_company' %}>Sign up</a>
-          <a class="text-primary" href={% url 'company_login' %}>Login</a>
-        </div>
-      </div>
+      </div>  
     </header>
     <!-- End Header -->
-
+    
     <!--main -->
 
     {% block content %} {% endblock content %}
     <!--end main -->
 
-    <footer id="footer">
+  {% comment %} <footer id="footer">
 
     <div class="footer-top">
 
@@ -144,13 +151,7 @@
 
       </div>
     </div>
-
-
-  </footer>
- 
-
-
-  </footer><!-- End Footer -->
+  </footer><!-- End Footer --> {% endcomment %}
     <a href="#" class="back-to-top"><i class="icofont-simple-up"></i></a>
 
     <!-- Vendor JS Files -->

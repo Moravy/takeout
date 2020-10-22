@@ -25,41 +25,57 @@
             </div>
         </div>
     </div>
-{% comment %}     
 
-
-    <div class="mt-3 bigParent">
-        <h4 class="mt-3 mb-2 border-bottom border-secondary">Menu</h4>
-
-            {% for restaurant in restaurants %}
-
-                <div class=" mt-3 text-center">
-                    <a class="text-left" data-toggle="collapse" href="#collapseExample{{ forloop.counter }}" role="button" aria-expanded="false" aria-controls="collapseExample">
-                        <h5 class="border-bottom" >{{restaurant.name}}</h5>
-                    </a>
-            
-                    <div class="collapse" id="collapseExample{{ forloop.counter }}" >
-                        <div class="parent ">
-                            {% for menu in restaurant.menu_name  %}
-                                <div class="box card text-center">
-                                    <img src="{{menu.image.url}}" class="card-img-top" alt="..."/>  
-                                    <div class="card-body">
-                                        <h5 class="card-title">{{menu.name}}</h5>
-                                        <p class="card-img">This is a longer card with supporting text below as a natural</p>
-                                        <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
-                                    </div>
-                                
-                                </div>
-                            {% endfor %}
+    <div class='mt-3 mb-5 text-center'>
+    
+        <a class="text-left" data-toggle="collapse" href="#collapse1" role="button" aria-expanded="false" aria-controls="collapseExample">
+            <h5 class="border-bottom" >Order ({{customer_order|length}})</h5>
+        </a>
+        <div class="collapse" id="collapse1" >
+            <div class="parent mt-3">
+                {% for order in customer_order  %}
+                    <button data-product="{{order.id}}" data-action="" class=" view overlay box card text-center update-cart">
+                        <img src="{{order.menu.image.url}}" class="card-img-top" alt="..."/>  
+                        <div class="card-body">
+                            <h5 class="card-title">{{order.menu.name}}</h5>
+                            <p class="card-img">This is a longer card with supporting text below as a natural</p>
+                            <p class="card-text"><small class="text-muted">{{order.status}}</small></p>
                         </div>
-                        
-                        <button class="mt-2 mb-3 btn btn-outline-info" data-toggle="collapse" href="#collapseExample{{ forloop.counter }}" role="button" aria-expanded="false" aria-controls="collapseExample">
-                            showless
-                        </button>
-                    </div>
+                        <div class="mask flex-center rgba-red-strong">
+                            <p class="white-text"></p>
+                        </div>  
+                    </button>
+                {% endfor %}
+            </div>
+                <button class="mt-2 mb-3 view overlay btn btn-outline-info" data-toggle="collapse" href="#collapse1" role="button" aria-expanded="false" aria-controls="collapseExample">
+                    showless
+                    <div class="mask flex-center rgba-blue-strong">
+                        <p class="white-text"></p>
+                    </div>  
+                </button>
+        </div>
 
-                </div>
-            {% endfor %}  {% endcomment %}
+        <a class="text-left" data-toggle="collapse" href="#collapse2" role="button" aria-expanded="false" aria-controls="collapseExample">
+                <h5 class="border-bottom" >History ({{history_order|length}})</h5>
+        </a>
+        <div class="collapse" id="collapse2" >
+            <div class="parent mt-3">
+                {% for order in history_order  %}
+                    <button data-product="{{order.id}}" data-action="" class=" view overlay box card text-center update-cart">
+                        <img src="{{order.menu.image.url}}" class="card-img-top" alt="..."/>  
+                        <div class="card-body">
+                            <h5 class="card-title">{{order.menu.name}}</h5>
+                            <p class="card-img">This is a longer card with supporting text below as a natural</p>
+                            <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+                        </div>
+                        <div class="mask flex-center rgba-red-strong">
+                            <p class="white-text"></p>
+                        </div>  
+                    </button>
+                {% endfor %}
+
+            </div>
+        </div>
     </div>
 
 </section>

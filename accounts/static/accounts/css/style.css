@@ -228,7 +228,7 @@ h6 {
 
 .get-started-btn:hover {
   background: #206bfb;
-  color: #fff;
+  color: #fff !important;
   border-color: #206bfb;
 }
 

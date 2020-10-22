@@ -2,8 +2,12 @@
 {% load static %}
 {% load crispy_forms_tags %}
 {% block content %}
+
+<script>
+    var item = "{{customers.items}}"
+</script>
 <section class="container" id="profile">
-    <div class=" mt-5 text-center">
+    <div class=" mt-5 text-center ">
         <h3> Hello, {{user.username}}</h3>
         <div class="card-deck mt-5 mx-auto">
             <div class="card  text-center" >
@@ -28,31 +32,61 @@
             <h5 class="border-bottom" >Order</h5>
         </a>
         <div class="collapse" id="collapse1" >
-            {% for customer in customers.keys %}
+            {% for customer,order_items in customers.items %}
                 <div class="mt-3 text-center">
                     <a class="text-left" data-toggle="collapse" href="#collapseExample{{ forloop.counter }}" role="button" aria-expanded="false" aria-controls="collapseExample">
                         <h5 class="border-bottom" >{{customer}}</h5>
                     </a>
                     <div class="collapse" id="collapseExample{{ forloop.counter }}" >
-                    <div class="parent ">
-                        {% for order in customers|get_item:customer %}
-                        
-                            <button  class=" view overlay box card text-center update-cart">
-                                <img src="{{order.image.url}}" class="card-img-top" alt="..."/>  
-                                <div class="card-body">
-                                    <h5 class="card-title">{{order.name}}</h5>
-                                    <p class="card-img">This is a longer card with supporting text below as a natural</p>
-                                    <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
-                                </div>
-                                <div class="mask flex-center rgba-red-strong">
-                                    <p class="white-text"></p>
-                                </div>  
-                            </button>
-                        
-                        {% endfor %}
+                        <div class="parent ">
+                            {% for order in order_items %}
+                                 <button class=" view overlay box card text-center update-cart">
+                                    <img src="{{order.menu.image.url}}" class="card-img-top" alt="..."/>  
+                                    <div class="card-body">
+                                        <h5 class="card-title">{{order.menu.name}}</h5>
+                                        <p class="card-img">This is a longer card with supporting text below as a natural</p>
+                                        <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+                                    </div>
+                                    <div class="mask flex-center rgba-red-strong">
+                                        <p class="white-text"></p>
+                                    </div>  
+                                </button>
+                            {% endfor %}
                         </div>
-                        <button class="mt-2 mb-3 view overlay btn btn-outline-info update-cart" data-customer="{{customer}}" data-product="{{customers|get_item_id:customer}}" data-action="delete_order">
-                            showless
+                        <button class="mt-2 mb-3 view overlay btn btn-outline-info update-cart" data-customer="{{customer}}" data-product="{{customers.items}}" data-action="coming_status">
+                            Ready
+                            <div class="mask flex-center rgba-blue-strong">
+                                <p class="white-text"></p>
+                            </div>  
+                        </button>
+                    </div>
+            {% endfor %} 
+        </div>
+            {% comment %} {% for customer in customers.keys %}
+                <div class="mt-3 text-center">
+                    <a class="text-left" data-toggle="collapse" href="#collapseExample{{ forloop.counter }}" role="button" aria-expanded="false" aria-controls="collapseExample">
+                        <h5 class="border-bottom" >{{customer}}</h5>
+                    </a>
+                    <div class="collapse" id="collapseExample{{ forloop.counter }}" >
+                        <div class="parent ">
+                            {% for order in customers|get_item:customer %}
+                            
+                                <button  class=" view overlay box card text-center update-cart">
+                                    <img src="{{order.image.url}}" class="card-img-top" alt="..."/>  
+                                    <div class="card-body">
+                                        <h5 class="card-title">{{order.name}}</h5>
+                                        <p class="card-img">This is a longer card with supporting text below as a natural</p>
+                                        <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+                                    </div>
+                                    <div class="mask flex-center rgba-red-strong">
+                                        <p class="white-text"></p>
+                                    </div>  
+                                </button>
+                            
+                            {% endfor %}
+                        </div>
+                        <button class="mt-2 mb-3 view overlay btn btn-outline-info update-cart" data-customer="{{customer}}" data-product="{{customers|get_item_id:customer}}" data-action="comming_status">
+                            Cancel
                             <div class="mask flex-center rgba-blue-strong">
                                 <p class="white-text"></p>
                             </div>  
@@ -60,9 +94,9 @@
                     </div>
     
                 </div>
-            {% endfor %}
+            {% endfor %}  {% endcomment %}
             
-        </div>
+        
 
         <a class="text-left" data-toggle="collapse" href="#collapse2" role="button" aria-expanded="false" aria-controls="collapseExample">
             <h5 class="border-bottom" >Menu</h5>

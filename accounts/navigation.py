@@ -1,25 +1,44 @@
-import openrouteservice
-import folium
+import googlemaps
+from googlemaps.maps import StaticMapPath
 
 
+class Navigation:
 
-def get_routes(coords):
-<<<<<<< HEAD
-    client = openrouteservice.Client(
-        key='5b3ce3597851110001cf6248601cc4adb79846c89cab0a82974ac095')  # API KEY GOES HERE
-=======
-    client = openrouteservice.Client(key="")  # API KEY GOES HERE
->>>>>>> dc952c55e4714e8fc25f218c97f4684e9d1e7a79
-    routes = client.directions(coords)
+    def __init__(self):
+        self.client = googlemaps.Client(
+            key='AIzaSyD0Isa9kbHBJ_Q2txdAsLsycNzKnUoXafA')
 
-    return routes
+    def get_directions(self, source, destination):
+        directions_result = self.client.directions(source, destination)
 
+        return directions_result
 
-def render_route(routes):
-    m = folium.Map(location=[0, 0], tiles="cartodbpositron", zoom_start=13)
-    folium.PolyLine(
-        locations=[
-            list(reversed(coord))
-            for coord in routes["features"][0]["geometry"]["coordinates"]
-        ]
-    ).add_to(m)
+    def render_route(self, origin, destination):
+        # m = folium.Map(location=[0, 0], tiles="cartodbpositron", zoom_start=13)
+        # folium.PolyLine(
+        #     locations=[
+        #         list(reversed(coord))
+        #         for coord in routes["features"][0]["geometry"]["coordinates"]
+        #     ]
+        # ).add_to(m)
+
+        path = StaticMapPath(points=[origin, destination])
+
+        response = self.client.static_map(
+            maptype="hybrid",
+            format="png",
+            scale=2,
+            path=path
+        )
+
+        with open("./assets/maps/test.png", "wb") as fp:
+            for chunks in response:
+                fp.write(chunks)
+
+        # with open("./takeout/test.png", 'w') as f:
+        #     response.save(f)
+
+        # with open('./takeout/test.png', 'wb') as f:
+        #     f.write(response)
+
+        return response

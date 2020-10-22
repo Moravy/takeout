@@ -1,10 +1,10 @@
 /db.sqlite3
 
 /accounts/migrations/*
-
+/accounts/__pycache__/*
 /trash.py
 
-/takeout/_pycache_/*
+/takeout/__pycache__/*
 
 /takeout/settings.py
 

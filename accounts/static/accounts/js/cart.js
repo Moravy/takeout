@@ -8,10 +8,10 @@ for (var i = 0; i < updateBtn.length; i++) {
         if (this.dataset.customer) {
             var customer = this.dataset.customer;
         }
-
-
-        console.log(menu_id, action)
-
+        
+        
+        console.log(menu_id, action, customer, item)
+        
         if (user === 'AnonymousUser') {
             console.log("NOT LOGGED IN")
         } else {
@@ -23,7 +23,7 @@ for (var i = 0; i < updateBtn.length; i++) {
 sendingUpdateOrder = (menu_id, action, customer) => {
     console.log(menu_id, action, customer)
     var url = '/customer/update_order/'
-
+    
     fetch(url, {
         method: 'POST',
         headers: {
